@@ -29,19 +29,15 @@
 
       <ul id="users"></ul>
 
-      <!-- <ul class="items">
-        <li class="item">Item 1</li>
-        <li class="item">Item 2</li>
-        <li class="item">Item 3</li>
-      </ul> -->
+     
     </section>
     
 
     <script>
-        // Get the form element
+       
 const form = document.querySelector('#my-form');
 
-// Add an event listener for the form submission event
+
 form.addEventListener('submit', (e) => {
   e.preventDefault(); // Prevent the default form submission behavior
 
@@ -55,16 +51,16 @@ form.addEventListener('submit', (e) => {
     email
   };
 
-  // Retrieve the existing user details from local storage
+  
   let users = JSON.parse(localStorage.getItem('users')) || [];
 
-  // Add the new user to the array
+  
   users.push(user);
 
-  // Store the updated user details in local storage
+ 
   localStorage.setItem('users', JSON.stringify(users));
 
-  // Clear the form fields
+ 
   document.getElementById('name').value = '';
   document.getElementById('email').value = '';
 
