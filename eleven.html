@@ -1,0 +1,93 @@
+<section class="container">
+    <form id="my-form">
+      <h1>Add User</h1>
+      <div class="msg"></div>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email">
+      </div>
+      <div>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone">
+      </div>
+      <input class="btn" type="submit" value="Submit">
+    </form>
+  
+    <ul id="users"></ul>
+  </section>
+<script>
+    
+const form = document.getElementById('my-form');
+const usersList = document.getElementById('users');
+
+
+form.onclick = function(e) {
+  e.preventDefault();
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const phoneInput = document.getElementById('phone');
+
+ 
+
+  
+  const user = {
+    name: nameInput.value,
+    email: emailInput.value,
+    phone: phoneInput.value
+  };
+
+  
+  let users = JSON.parse(localStorage.getItem('users')) || [];
+
+  
+  users.push(user);
+
+  
+  localStorage.setItem('users', JSON.stringify(users));
+
+  
+  addUserToUI(user);
+
+  
+  nameInput.value = '';
+  emailInput.value = '';
+  phoneInput.value = '';
+}
+
+
+function deleteUser(e) {
+  if(e.target.classList.contains('delete')) {
+    const email = e.target.parentElement.querySelector('.email').innerText;
+    const users = JSON.parse(localStorage.getItem('users'));
+
+    
+    localStorage.setItem('users', JSON.stringify(users.filter(user => user.email !== email)));
+
+    
+    e.target.parentElement.remove();
+  }
+}
+
+
+function addUserToUI(user) {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    ${user.name} - <span class="email">${user.email}</span> - ${user.phone} 
+    <button class="delete" onclick="deleteUser(event)">Delete</button>
+  `;
+  usersList.appendChild(li);
+}
+
+//
+function loadUsers() {
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+  users.forEach(user => addUserToUI(user));
+}
+
+loadUsers();
+
+</script>  
